@@ -20,11 +20,11 @@ class KeystoneProvides(RelationBase):
 
     @hook('{provides:keystone-credentials}-relation-joined')
     def joined(self):
-        self.set_flag('{relation_name}.connected')
+        self.set_state('{relation_name}.connected')
 
     @hook('{provides:keystone-credentials}-relation-{broken,departed}')
     def departed(self):
-        self.clear_flag('{relation_name}.connected')
+        self.remove_state('{relation_name}.connected')
 
     def expose_credentials(self, credentials):
         """Expose Keystone credentials to related units.
